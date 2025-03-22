@@ -6,6 +6,12 @@ async function getPaymentMethods() {
 
   return notion.databases.query({
     database_id: databaseId,
+    "filter": {
+      "property": "삭제",
+      "checkbox": {
+        "equals": false,
+      },
+    },
   })
 }
 
@@ -37,6 +43,22 @@ async function createPaymentMethod({ name }: { name: string }) {
           }
         ]
       },
+      "삭제": {
+        checkbox: false,
+      },
+    },
+  })
+}
+
+async function deletePaymentMethod({ pageId }: { pageId: string }) {
+  const notion = new Client({ auth: process.env.NOTION_API_KEY })
+
+  return await notion.pages.update({
+    page_id: pageId,
+    properties: {
+      "삭제": {
+        checkbox: true,
+      },
     },
   })
 }
@@ -44,4 +66,5 @@ async function createPaymentMethod({ name }: { name: string }) {
 export {
   getPaymentMethods,
   createPaymentMethod,
+  deletePaymentMethod,
 }
