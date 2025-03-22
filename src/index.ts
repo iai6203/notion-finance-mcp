@@ -2,7 +2,12 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod"
 
-import { getPaymentMethods, createPaymentMethod, deletePaymentMethod } from "./helpers/database.helper.js"
+import {
+  getPaymentMethods,
+  createPaymentMethod,
+  deletePaymentMethod,
+  createTransaction,
+} from "./helpers/database.helper.js"
 import { paymentMethodFormatter } from "./formatters/database.formatter.js"
 
 const server = new McpServer({
@@ -81,6 +86,37 @@ server.tool(
       return {
         content: [
           { type: "text", text: "결제 수단 삭제 오류" },
+        ],
+      }
+    }
+  },
+)
+
+server.tool(
+  "create-transaction",
+  "결제 내역 추가",
+  {
+    price: z.number().positive().describe("금액"),
+    category: z.enum(["수입", "지출", "이체"]).describe("분류"),
+    vendor: z.string().min(1).describe("거래처"),
+    paymentMethodId: z.string().min(1).describe("결제 수단 ID"),
+    date: z.string().date().describe("날짜 (ISO)"),
+    memo: z.string().min(1).describe("메모"),
+  },
+  async (data) => {
+    try {
+      await createTransaction(data)
+
+      return {
+        content: [
+          { type: "text", text: "결제 내역이 추가되었습니다." },
+        ],
+      }
+    }
+    catch (error) {
+      return {
+        content: [
+          { type: "text", text: "결제 내역 추가 오류" },
         ],
       }
     }
