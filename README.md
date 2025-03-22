@@ -26,12 +26,12 @@
         "-e",
         "NOTION_API_KEY",
         "-e",
-        "NOTION_MONEY_TRACKER_PAGE_ID",
+        "NOTION_PAYMENT_DATABASE_ID",
         "mcp/notion"
       ],
       "env": {
         "NOTION_API_KEY": "<YOUR_NOTION_API_KEY>",
-        "NOTION_MONEY_TRACKER_PAGE_ID": "<YOUR_NOTION_MONEY_TRACKER_PAGE_ID>"
+        "NOTION_PAYMENT_DATABASE_ID": "<YOUR_NOTION_PAYMENT_DATABASE_ID>"
       }
     }
   }
