@@ -10,6 +10,10 @@
 
 [Notion API Key](https://developers.notion.com/)를 생성해주세요.
 
+### Notion 템플릿 구성
+
+[Notion 초기 템플릿](https://www.notion.so/dev-js/1be9e25bddc380fe8d56ffac26a08965)을 개인 페이지에 복사해주세요.
+
 ### Claude Desktop & Notion MCP 사용법
 
 우선, Notion MCP를 `claude_desktop_config.json` 파일에 아래와 같이 추가합니다.
