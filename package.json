@@ -1,0 +1,25 @@
+{
+  "name": "notion-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "bin": {
+    "notion": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "author": "kim jaeseok",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.11",
+    "typescript": "^5.8.2"
+  }
+}
