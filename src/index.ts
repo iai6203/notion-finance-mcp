@@ -1,7 +1,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
+import { z } from "zod"
 
-import { getPaymentMethods } from "./helpers/database.helper.js"
+import { getPaymentMethods, createPaymentMethod } from "./helpers/database.helper.js"
 import { paymentMethodFormatter } from "./formatters/database.formatter.js"
 
 const server = new McpServer({
@@ -27,6 +28,33 @@ server.tool(
       return {
         content: [
           { type: "text", text: "결제 수단 목록 조회 오류" },
+        ],
+      }
+    }
+  },
+)
+
+server.tool(
+  "create-payment-method",
+  "결제 수단 생성 (생성 전 사용자에게 다시 한번 확인받을 것)",
+  {
+    name: z.string().min(1).describe("결제 수단명"),
+  },
+  async ({ name }) => {
+    try {
+      const paymentMethod = await createPaymentMethod({ name })
+      const formatted = paymentMethodFormatter(paymentMethod)
+
+      return {
+        content: [
+          { type: "text", text: formatted },
+        ],
+      }
+    }
+    catch (error) {
+      return {
+        content: [
+          { type: "text", text: "결제 수단 생성 오류" },
         ],
       }
     }
