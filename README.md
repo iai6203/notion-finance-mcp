@@ -4,7 +4,6 @@
 
 - 결제 수단 목록 조회
 - 결제 수단 생성
-- 결제 수단 삭제
 
 ## 시작하기
 
@@ -32,15 +31,12 @@
         "-e",
         "NOTION_API_KEY",
         "-e",
-        "NOTION_PAYMENT_DATABASE_ID",
-        "-e",
-        "NOTION_TRANSACTIONS_DATABASE_ID",
+        "NOTION_PAYMENT_METHOD_DATABASE_ID",
         "mcp/notion"
       ],
       "env": {
         "NOTION_API_KEY": "<YOUR_NOTION_API_KEY>",
-        "NOTION_PAYMENT_DATABASE_ID": "<YOUR_NOTION_PAYMENT_DATABASE_ID>",
-        "NOTION_TRANSACTIONS_DATABASE_ID": "<YOUR_NOTION_TRANSACTIONS_DATABASE_ID>"
+        "NOTION_PAYMENT_METHOD_DATABASE_ID": "<YOUR_NOTION_PAYMENT_METHOD_DATABASE_ID>"
       }
     }
   }
