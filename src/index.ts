@@ -4,7 +4,9 @@ import { z } from "zod"
 
 import { getPaymentMethods, createPaymentMethod } from "./helpers/payment-method.js"
 import { getCategories, createCategory } from "./helpers/category.js"
+import { createTransaction } from "./helpers/transaction.js"
 import { paymentMethodFormatter } from "./formatters/payment-method.js"
+import { transactionFormatter } from "./formatters/transaction.js"
 import { categoryFormatter } from "./formatters/category.js"
 
 const server = new McpServer({
@@ -108,6 +110,39 @@ server.tool(
       return {
         content: [
           { type: "text", text: "카테고리 생성 오류" },
+        ],
+      }
+    }
+  },
+)
+
+server.tool(
+  "create-transaction",
+  "결제 내역 생성 (생성 전 사용자에게 다시 한번 확인)",
+  {
+    vendor: z.string().min(1).describe("거래처"),
+    date: z.string().min(1).describe("날짜 (ISO)"),
+    type: z.enum(["수입", "지출", "이체"]).describe("타입 (수입, 지출, 이체)"),
+    categoryId: z.string().min(1).describe("카테고리 ID"),
+    paymentMethodId: z.string().min(1).describe("결제 수단 ID"),
+    price: z.number().describe("가격"),
+    memo: z.string().describe("메모"),
+  },
+  async (data) => {
+    try {
+      const transaction = await createTransaction(data)
+      const formatted = transactionFormatter(transaction)
+
+      return {
+        content: [
+          { type: "text", text: formatted },
+        ],
+      }
+    }
+    catch (error) {
+      return {
+        content: [
+          { type: "text", text: "결제 내역 생성 오류" },
         ],
       }
     }
