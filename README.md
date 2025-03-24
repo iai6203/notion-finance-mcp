@@ -6,6 +6,7 @@
 - 결제 수단 생성
 - 카테고리 목록 조회
 - 카테고리 생성
+- 결제 내역 생성
 
 ## 시작하기
 
@@ -36,12 +37,15 @@
         "NOTION_PAYMENT_METHOD_DATABASE_ID",
         "-e",
         "NOTION_CATEGORY_DATABASE_ID",
+        "-e",
+        "NOTION_TRANSACTION_DATABASE_ID",
         "mcp/notion"
       ],
       "env": {
         "NOTION_API_KEY": "<YOUR_NOTION_API_KEY>",
         "NOTION_PAYMENT_METHOD_DATABASE_ID": "<YOUR_NOTION_PAYMENT_METHOD_DATABASE_ID>",
-        "NOTION_CATEGORY_DATABASE_ID": "<YOUR_NOTION_CATEGORY_DATABASE_ID>"
+        "NOTION_CATEGORY_DATABASE_ID": "<YOUR_NOTION_CATEGORY_DATABASE_ID>",
+        "NOTION_TRANSACTION_DATABASE_ID": "<YOUR_NOTION_TRANSACTION_DATABASE_ID>"
       }
     }
   }
